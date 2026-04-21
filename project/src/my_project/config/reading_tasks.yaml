@@ -1,0 +1,79 @@
+# src/my_project/config/reading_tasks.yaml
+
+generate_detail_question_task:
+  description: >
+    請閱讀以下這篇全新的文章：
+    【文章內容】
+    {article_content}
+    
+    【你的任務】
+    請為這篇文章出一道「細節擷取題」。
+    
+    【學習範本】
+    請嚴格參考以下歷屆會考的優良範本，模仿其題幹語氣、選項長度與詳解風格：
+    {examples_str}
+    
+  expected_output: >
+    必須是一個 JSON 格式的字典，包含以下欄位（請絕對不要輸出 markdown 標記）：
+    {{
+      "題型": "細節擷取",
+      "題幹": "這裡放你的題目...",
+      "A": "選項A",
+      "B": "選項B",
+      "C": "選項C",
+      "D": "選項D",
+      "答案": "正確選項(例如 A)",
+      "詳解": "為什麼這個選項正確，其他選項錯誤的詳細解釋..."
+    }}
+  agent: detail_extraction_agent
+
+generate_theme_question_task:
+  description: >
+    請閱讀以下這篇全新的文章：
+    【文章內容】
+    {article_content}
+    
+    【你的任務】
+    請為這篇文章出一道「文意推論題」（例如主旨、作者態度、文章總結）。
+    
+    【學習範本】
+    請嚴格參考以下歷屆會考的優良範本，模仿其出題邏輯：
+    {examples_str}
+    
+  expected_output: >
+    必須是一個 JSON 格式的字典，欄位結構與細節擷取題相同，但「題型」請填寫「文意推論」。
+  agent: theme_inference_agent
+
+# ... (上面保留原本的 generate_detail 和 generate_theme 任務) ...
+
+generate_knowledge_task:
+  description: >
+    請直接出一道「國學常識或語文能力」的單題。
+    考點方向（請隨機選擇一種）：字音字形、成語運用、修辭判別、文學流派或作家常識。
+    請確保難度符合臺灣國中會考標準。
+  expected_output: >
+    必須是一個 JSON 格式的字典（請絕對不要輸出 markdown 標記）：
+    {
+      "題型": "國學常識",
+      "題幹": "你的題目...",
+      "A": "選項A", "B": "選項B", "C": "選項C", "D": "選項D",
+      "答案": "正確選項",
+      "詳解": "詳解..."
+    }
+  agent: knowledge_expert_agent
+
+generate_creative_reading_task:
+  description: >
+    第一步：請先撰寫一篇約 200-300 字的原創短文（主題不限，可為生活哲理、歷史故事或科普知識）。
+    第二步：根據你寫的文章，出一道「閱讀理解題」。
+  expected_output: >
+    必須是一個 JSON 格式的字典（請絕對不要輸出 markdown 標記）：
+    {
+      "文章內容": "你所撰寫的 300 字原創短文...",
+      "題型": "原創閱讀",
+      "題幹": "你的題目...",
+      "A": "選項A", "B": "選項B", "C": "選項C", "D": "選項D",
+      "答案": "正確選項",
+      "詳解": "詳解..."
+    }
+  agent: creative_author_agent

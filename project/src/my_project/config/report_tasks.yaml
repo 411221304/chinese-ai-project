@@ -1,0 +1,19 @@
+# src/my_project/config/report_tasks.yaml
+
+generate_diagnostic_report_task:
+  description: >
+    請根據以下這名學生的模擬考作答數據分析，為他撰寫一份專屬的學習改進報告：
+    
+    【學生作答數據摘要】
+    {student_stats}
+    
+    【報告要求撰寫架構】
+    1. 🌟 總結與鼓勵：根據整體答對率給予溫暖的開場與肯定。
+    2. 📊 強弱項診斷：具體點出他表現好的地方，以及失分最嚴重的題型。
+    3. 🎯 專屬提分策略：針對「待加強項目」，給予 2~3 個非常具體的讀書建議（例如：如何拆解文言文、如何背成語）。
+    4. 💡 導師期許：一段激勵人心的結語。
+
+  expected_output: >
+    一篇排版精美、層次分明的 Markdown 格式中文報告。
+    （請直接輸出報告內容，不要包含額外的程式碼標籤或多餘的碎碎念）。
+  agent: diagnostic_tutor_agent

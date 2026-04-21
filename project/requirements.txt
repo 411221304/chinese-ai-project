@@ -1,0 +1,11 @@
+streamlit
+pandas
+python-dotenv~=1.1.1
+openpyxl
+jieba
+crewai
+litellm
+google-generativeai
+openai
+tiktoken
+pydantic~=2.11.9
