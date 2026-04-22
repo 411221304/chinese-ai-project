@@ -1,9 +1,0 @@
-streamlit
-pandas
-python-dotenv
-openpyxl
-jieba
-google-generativeai
-openai
-tiktoken
-pydantic
