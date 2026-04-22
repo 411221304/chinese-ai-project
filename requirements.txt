@@ -1,0 +1,7 @@
+streamlit
+python-dotenv
+pandas
+openpyxl
+jieba
+requests
+crewai[google-genai,tools]==1.10.1

@@ -1,0 +1,67 @@
+grammar_task:
+  description: >
+    閱讀以下題目為「{essay_topic}」的作文：
+    
+    {essay_content}
+    
+    【客觀數據分析參考】
+    這是一份由系統自動計算的 NLP 數據，請參考此數據來輔助判斷學生的詞彙豐富度與句型變化：
+    {essay_stats}
+    
+    請列出所有的文法與拼寫錯誤，並結合上述的「詞彙豐富度 (TTR)」，嚴格評論其詞彙使用能力（若 TTR 過低，請務必指出其用詞貧乏或重複度過高）。
+  expected_output: >
+    一份條理分明的文法與詞彙檢討報告，包含錯誤清單與修正建議。
+  agent: grammar_agent
+
+structure_task:
+  description: >
+    閱讀以下題目為「{essay_topic}」的作文：
+    
+    {essay_content}
+    
+    【客觀數據分析參考】
+    請參考以下系統計算的客觀數據，輔助評估其篇幅與段落發展是否充分：
+    {essay_stats}
+    
+    請分析其段落結構、邏輯推進與主題切合度。若總字數或句數過少，請明確指出其結構發展極度不完整。
+  expected_output: >
+    一份結構分析報告，指出文章在邏輯與段落安排上的優缺點。
+  agent: structure_agent
+
+scoring_task:
+  description: >
+    綜合「語文老師」與「結構分析師」的報告，為這篇題目為「{essay_topic}」的作文給出最終評價。
+    
+    【客觀數據分析參考】
+    {essay_stats}
+    
+    【評分標準】
+    請嚴格遵守以下會考 6 級分制標準：
+    {grading_rubric}
+
+    【歷屆範文與評語參考】
+    {example_essays}
+    
+    【你的任務】
+    1. 針對學生的作文：\n\n{essay_content}\n\n
+    2. 給出一個最終級分 (1 到 6 級分)。請務必參考「客觀數據」，若字數過少或詞彙極度貧乏，請果斷給予 1 或 2 級分。
+    3. 綜合前兩份報告與客觀數據，撰寫一段綜合評語、文法評論與結構評論。
+    4. 給出具體的下一步改進建議。
+    
+    【重要輸出格式限制】
+    請絕對不要輸出任何 Markdown 標記（例如 ```json 或 ```），也不要說任何解釋性的廢話。
+    你的整個回覆必須是一個「合法且可被解析的 JSON 字串」。
+  expected_output: >
+    必須是完全符合以下結構的 JSON 格式：
+    {
+      "final_grade": 5,
+      "summary_comment": "這裡放綜合評語...",
+      "grammar_review": "這裡放語文老師的重點...",
+      "structure_review": "這裡放結構分析師的重點...",
+      "improvement_suggestions": [
+        "建議一：...",
+        "建議二：..."
+      ]
+    }
+  agent: chief_evaluator_agent
+  context: [grammar_task, structure_task]
